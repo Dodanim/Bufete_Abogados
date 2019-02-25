@@ -1,0 +1,19 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Feb 24, 2019, 11:33:38 PM
+    Author     : KiDo
+*/
+
+body {
+    background-color: #ffffff;
+    font-size: 16px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 10px;
+      background-image: url(../img/error404.jpg) ;
+      background-color: #2e6da4;
+}
