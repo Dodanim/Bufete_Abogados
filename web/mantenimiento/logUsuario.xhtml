@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../master_BA.xhtml">
+<ui:define name="barrita">
+                <b:form>
+                    <b:icon class="ico" value="pause" />
+                </b:form>
+            </ui:define>
+            <ui:define name="titular">
+                <p>Mantenimiento</p> 
+            </ui:define>
+            <ui:define name="subtitular">
+                <p>Actividad del Usuario</p> 
+            </ui:define>
+
+            <ui:define name="content">
+               
+                <h:form>
+                    <b:dataTable value="#{logUsuarioBean.lista}" class="tablaDatos"
+                                 responsive="true"  excel="true" csv="true"
+                                 pdf="true" columnVisibility="true" copy="true"
+                                 print="true" var="accion">
+                        <b:dataTableColumn label="#" value="#{accion.idAccion}" />
+                        <b:dataTableColumn label="Documento de Identidad" value="#{accion.accion}" />
+                        <b:dataTableColumn label="Nombres" value="#{accion.usuario}"/>
+                     
+                    </b:dataTable>
+                </h:form>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

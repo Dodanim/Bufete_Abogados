@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../master_BA.xhtml">
+            <ui:define name="barrita">
+                <b:form>
+                    <b:icon class="ico" value="pause" />
+                </b:form>
+            </ui:define>
+            <ui:define name="titular">
+                <p>Archivero de Casos</p> 
+            </ui:define>
+            <ui:define name="subtitular">
+                <p>Bitacora del caso</p> 
+            </ui:define>
+            <ui:define name="content">
+                <b:modal id="Ingreso" title="Registro Bitacora" styleClass="modalPseudoClass">
+                    <h:form id="miFormularioI" >
+                        <h:panelGroup layout="block" styleClass="alert alert-danger"
+                                      rendered="#{not empty facesContext.messageList}">
+                            <h:messages />
+                        </h:panelGroup>
+                        <h:panelGrid columns="4" styleClass="table">
+                            <h:outputLabel for="id" value="id:"/>
+                            <h:inputText id="id" styleClass="form-control"
+                                         value="#{bitacoraBean.bit.idBitacora}">
+                            </h:inputText>
+                            <h:outputLabel for="referencia" value="Referencia:"/>
+                            <h:inputText id="referencia" styleClass="form-control"
+                                         value="#{bitacoraBean.bit.referencia}"
+                                         required="true"
+                                         requiredMessage="Debes ingresar la referencia"/>
+                            <h:outputLabel for="detalle" value="Detalle:"/>
+                            <h:inputTextarea id="detalle" styleClass="form-control"
+                                             value="#{bitacoraBean.bit.detalle}" required="false" 
+                                             requiredMessage="Debes ingresar el detalle del caso">
+                            </h:inputTextarea>
+                            <h:outputLabel for="IdTipoUsuario" value="Colaborador:"/>
+                            <h:selectOneMenu  value="#{bitacoraBean.bit.idColaborador}"
+                                              styleClass="form-control">
+                                <f:selectItem itemLabel="Seleccione categoria" itemValue=""/> 
+                                <f:selectItems var="lista" value="#{bitacoraBean.listaColaboradores}"
+                                               itemLabel="#{lista.nombre}" itemValue="#{lista}"/>
+                            </h:selectOneMenu>
+                            <h:outputLabel for="fechai" value="Fecha de progreso:"/>
+                            <b:dateTimePicker mode="toggle-icon" showWeek="true" value="#{bitacoraBean.bit.fecha}" required="true" 
+                                              label-col-md="3" col-md="10"  format="DD/MM/YYYY"  
+                                              requiredMessage="Debes ingresar la fecha de apertura del caso"/>
+                            <h:outputLabel for="estado" value="Estado del cliente:"/>
+                            <h:selectOneMenu id="estado" value = "#{bitacoraBean.bit.estado}" 
+                                             styleClass="form-control"> 
+                                <f:selectItem itemValue = "True" itemLabel = "Activo"  /> 
+                                <f:selectItem itemValue = "False" itemLabel = "Inactivo" />
+                            </h:selectOneMenu>
+
+                            <h:commandButton   value="Guardar" styleClass="btn btn-success"
+                                               action="#{bitacoraBean.guardarBitacora()}" 
+                                               style="margin-right:10px">
+                          
+                                <f:param name="referencia" value="#{bitacoraBean.bit.referencia}" />
+                            </h:commandButton>
+                        </h:panelGrid>
+                    </h:form>
+                </b:modal>
+                <br/>
+                <button id="btrigger" class="btn btn-primary" data-target="#Ingreso" 
+                        data-toggle="modal" onclick="capturarCelda();">
+  <f:param name="referencia" value="#{bitacoraBean.bit.referencia}" />
+                    Agregar Progreso</button>
+                <br/> <br/>
+                <div>
+                    <h:form id="miFormulario">
+
+                        <b:dataTable id="dtBitacora" var="bit"  value="#{bitacoraBean.listaBitacora}" responsive="true">
+                            <b:dataTableColumn label="Titulo Caso" value="#{bit.referencia.tituloCaso}"  />
+                            <b:dataTableColumn value="#{bit.idColaborador.nombre}" />
+                            <b:dataTableColumn value="#{bit.detalle}"/>
+                            <b:dataTableColumn label="Fecha">
+                                <h:outputText value="#{bit.fecha}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </b:dataTableColumn>
+                            <b:dataTableColumn value="#{bit.referencia.referencia}" />
+                        </b:dataTable>
+                    </h:form>
+                </div>
+
+                <h:outputScript library="js" name="CapturaValores.js">
+               
+                </h:outputScript>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
+

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./../master_BA.xhtml">
+ <ui:define name="barrita">
+                <b:form>
+                
+                        <b:icon class="ico" value="pause" />
+                    </b:form>
+            </ui:define>
+            <ui:define name="titular">
+                <p>Registro Bufete</p> 
+            </ui:define>
+            <ui:define name="subtitular">
+                <p>Nuevo Colaborador</p> 
+            </ui:define>
+            <ui:define name="content">
+                           <h:form id="miFormulario">
+                        <h:panelGroup layout="block" styleClass="alert alert-danger" rendered="#{not empty facesContext.messageList}">
+                            <h:messages  />
+                        </h:panelGroup>
+                        <h:panelGrid columns="4" styleClass="table">
+                            <h:outputLabel for="idColaborador" value="Id Colaborador:"/>
+                            <h:inputText id="idColaborador" styleClass="form-control" 
+                                         value="#{colaboradorBean.colaborador.idColaborador}" required="true" 
+                                         requiredMessage="Debes ingresar el id del colaborador" validatorMessage="id debe ser COL000">
+                                <f:validateRegex pattern="COL[0-9]{3}"/>
+                            </h:inputText>
+                            <h:outputLabel for="correo" value="Correo:"/>
+                            <h:inputText id="correo" value="#{colaboradorBean.colaborador.correo}" required="true" styleClass="form-control"
+                                         requiredMessage="Debes ingresar el correo" validatorMessage="el correo debe tener el formato correcto" 
+                                         converterMessage="La edad debe ser númerica">
+                                <f:validateRegex pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"/>
+                            </h:inputText>
+                            <h:outputLabel for="nombre" value="Nombres:"/>
+                            <h:inputText id="nombre" styleClass="form-control" value="#{colaboradorBean.colaborador.nombre}" required="true" 
+                                         requiredMessage="Debes ingresar el nombre"/>
+                            <h:outputLabel for="apellidos" value="Apellidos:"/>
+                            <h:inputText id="apellidos" styleClass="form-control" value="#{colaboradorBean.colaborador.apellido}" 
+                                         required="true" requiredMessage="Debes ingresar el apellido"/>
+
+                            <h:outputLabel for="telefono" value="Teléfono:"/>
+                            <h:inputText id="telefono" styleClass="form-control" value="#{colaboradorBean.colaborador.telefono}" required="true" 
+                                         requiredMessage="Debes ingresar el telefono colaborador" validatorMessage="telefono no valido">
+                                <f:validateRegex pattern="[267]{1}[0-9]{3}-[0-9]{4}"/>
+                            </h:inputText>
+
+                        </h:panelGrid>
+                        <h:commandButton  value="Guardar" styleClass="btn btn-success" id="btnModificar"
+                                          action="#{colaboradorBean.modificarRegistro()}" style="margin-right:10px">
+
+                        </h:commandButton>
+                               <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                    </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

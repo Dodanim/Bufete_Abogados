@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./../master_BA.xhtml">
+            <ui:define name="barrita">
+                <b:form>
+
+                    <b:icon class="ico" value="pause" />
+                </b:form>
+            </ui:define>
+            <ui:define name="titular">
+                <p>Registro Cliente</p> 
+            </ui:define>
+            <ui:define name="subtitular">
+                <p>Nuevo Cliente</p> 
+            </ui:define>
+            <ui:define name="content">
+                <div class="">
+                    <h:form id="miFormulario">
+                        <h:panelGroup layout="block" styleClass="alert alert-danger" rendered="#{not empty facesContext.messageList}">
+                            <h:messages  />
+                        </h:panelGroup>
+                        <h:panelGrid columns="4" styleClass="table">
+                            <h:outputLabel for="idCliente" value="idCliente:"/>
+                            <h:outputText id="idCliente" styleClass="form-control" value="#{clienteBean.bit.idCliente}">
+                            </h:outputText>
+                            <h:outputLabel for="di" value="Documento de Identidad:"/>
+                            <h:inputText id="di" styleClass="form-control" value="#{clienteBean.bit.di}" required="true" 
+                                         requiredMessage="Debes ingresar el DI del cliente" validatorMessage="DI no valido">
+                                <f:validateRegex pattern="[0-9]{17}"/>
+                            </h:inputText>
+                            <h:outputLabel for="nombre" value="Nombres:"/>
+                            <h:inputText id="nombre" styleClass="form-control"
+                                         value="#{clienteBean.bit.nombre}" required="true" 
+                                         requiredMessage="Debes ingresar el nombre"/>
+                            <h:outputLabel for="apellidos" value="Apellidos:"/>
+                            <h:inputText id="apellidos" styleClass="form-control" value="#{clienteBean.bit.apellido}" 
+                                         required="true" requiredMessage="Debes ingresar el apellido"/>
+                            <h:outputLabel for="representante" value="Representante Legal:"/>
+                            <h:inputText id="representante" styleClass="form-control" value="#{clienteBean.bit.representanteLegal}" 
+                                         required="false" requiredMessage="Debes ingresar el representante legal"/>
+
+                            <h:outputLabel for="correo" value="correo"/>
+                            <h:inputText id="correo" value="#{clienteBean.bit.correo}" required="true" styleClass="form-control"
+                                         requiredMessage="Debes ingresar el correo" validatorMessage="Formato similar correo@dominio.dominio" 
+                                         converterMessage="Formato correo@dominio.dominio">
+                                <f:validateRegex pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"/>
+                            </h:inputText>
+                            <h:outputLabel for="telefono" value="Teléfono:"/>
+                            <h:inputText id="telefono" styleClass="form-control" value="#{clienteBean.bit.telefono}" required="true" 
+                                         requiredMessage="Debes ingresar el telefono cliente" validatorMessage="telefono no valido">
+                                <f:validateRegex pattern="[267]{1}[0-9]{3}-[0-9]{4}"/>
+                            </h:inputText>
+                            <h:outputLabel for="direccion" value="Dirección:"/>
+                            <h:inputText id="direccion" styleClass="form-control" value="#{clienteBean.bit.direccion}" 
+                                         required="true" requiredMessage="Debes ingresar la direccion"/>
+                            <h:outputLabel for="estado" value="Estado del cliente:"/>
+                            <h:selectOneMenu id="estado" value = "#{clienteBean.bit.estado}" 
+                                             onchange="return confirmarEliminacion();" styleClass="form-control"> 
+                                <f:selectItem itemValue = "True" itemLabel = "Activo"  /> 
+                                <f:selectItem itemValue = "False" itemLabel = "Inactivo" />
+                            </h:selectOneMenu>
+                        </h:panelGrid>
+
+                        <h:commandButton  value="Guardar" styleClass="btn btn-success" id="btnModificar"
+                                          onclick="confirmarEliminacion();" action="#{clienteBean.guardarRegistro()}" style="margin-right:10px">
+
+                        </h:commandButton>
+
+                        <h:commandButton  id="reset" type="reset" value="Limpiar" 
+                                          onclick="limpiar();" styleClass="btn btn-danger">
+
+                        </h:commandButton>
+                    </h:form>
+                </div>
+                <h:outputScript>
+                    function confirmarEliminacion(){
+                    if(document.getElementById("miFormulario:estado").value== 'False'){
+                    if( confirm("ADVERTENCIA: ESTADO INACTIVO¿Deseas anular este registro?")){
+                    return 0;
+                    }else{
+                    document.getElementById("miFormulario:estado").value= 'True';
+                    }
+
+                    }else{
+                    return 0;}
+                    }
+
+
+
+                </h:outputScript>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
