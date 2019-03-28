@@ -1,0 +1,33 @@
+*{
+    margin: auto;
+    padding: auto;
+}
+.body{
+  
+   margin: auto 0;
+    padding: auto 0;
+  background-image: url(../img/back3.jpg) ;
+      background-color: #2e6da4;
+    color: #FFF;
+    height: 200px;
+    background-color: green;
+    
+}
+.marco{
+    background-color: rgba(82,111,153,0.5);
+    width: 500px;
+    height: 350px;
+    
+}
+.entrada{
+     
+    margin-top: 50px;
+    width: 700px;
+    height: 500px;
+}
+.logo{
+   margin-bottom: 5px;
+   margin-left: 25%;
+    width: 25%;
+    height: 45%;
+}

@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui">
+
+    <body>
+
+        <ui:composition template="./../master_BA.xhtml">
+            <ui:define name="barrita">
+                <b:form>
+                    <b:icon class="ico" value="pause" />
+                </b:form>
+            </ui:define>
+            <ui:define name="titular">
+                <p>Archivero de Casos</p> 
+            </ui:define>
+            <ui:define name="subtitular">
+                <p>Nuevo Caso</p> 
+            </ui:define>
+            <ui:define name="content">
+                <h:form id="miFormulario">
+                    <h:panelGroup layout="block" styleClass="alert alert-danger" rendered="#{not empty facesContext.messageList}">
+                        <h:messages  />
+                    </h:panelGroup>
+                    <h:panelGrid columns="4" styleClass="table">
+                        <h:outputLabel for="referencia" value="Referencia:"/>
+                        <h:inputText id="referencia" styleClass="form-control" value="#{casoBean.caso.referencia}" required="true" 
+                                     requiredMessage="Debes ingresar la referencia del caso" validatorMessage="referencia no valida">
+                            <f:validateRegex pattern="[0-9]{5}-[0-9]{2}-[0-9]{4}-[0-9]{4}"/>
+                        </h:inputText>
+                        <h:outputLabel for="cliente" value="Cliente:"/>
+                        <h:selectOneMenu class="form-control" id="cliente" value="#{casoBean.caso.idCliente}">
+                            <f:selectItem itemLabel="Seleccione Cliente" itemValue=""/> 
+                            <f:selectItems var="lista" value="#{casoBean.listaClientes}"
+                                           itemLabel="#{lista.nombre}" itemValue="#{lista}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLabel for="titulo" value="Titulo:"/>
+                        <h:inputText id="titulo" styleClass="form-control" value="#{casoBean.caso.tituloCaso}" required="true" 
+                                     requiredMessage="Debes ingresar el titulo del caso"/>
+                        <h:outputLabel for="materia" value="Materia:"/>
+                        <h:inputText id="materia" styleClass="form-control" value="#{casoBean.caso.materia}" 
+                                     required="true" requiredMessage="Debes ingresar la materia del caso"/>
+                        <h:outputLabel for="juzgado" value="Juzgado:"/>
+                        <h:inputText id="juzgado" styleClass="form-control" value="#{casoBean.caso.juzgado}" required="true" 
+                                     requiredMessage="Debes ingresar el nombre del juzgado"/>
+
+                        <h:outputLabel for="juez" value="Num. Juez:"/>
+                        <h:inputText id="juez" value="#{casoBean.caso.numJuez}" required="true" styleClass="form-control"
+                                     requiredMessage="Debes ingresar el num de juez" validatorMessage="El numero debe ser mayor a 1" 
+                                     converterMessage="La edad debe ser númerica">
+                            <f:validateLongRange minimum="1" maximum="9999"/>
+                        </h:inputText>
+                        <h:outputLabel for="demandante" value="Demandante:"/>
+                        <h:inputText id="demandante" styleClass="form-control" value="#{casoBean.caso.demandante}" required="true" 
+                                     requiredMessage="Debes ingresar el nombre del demandante">
+                        </h:inputText>
+                        <h:outputLabel for="demandado" value="Demandado:"/>
+                        <h:inputText id="demandado" styleClass="form-control" value="#{casoBean.caso.demandado}" required="true" 
+                                     requiredMessage="Debes ingresar el nombre del demandado">
+                        </h:inputText>
+                        <h:outputLabel for="proceso" value="Proceso:"/>
+                        <h:inputText id="proceso" styleClass="form-control" value="#{casoBean.caso.proceso}" required="true" 
+                                     requiredMessage="Debes ingresar el tipo de proceso">
+                        </h:inputText>
+                        <h:outputLabel for="jurisprudencia" value="Jurisprudencia:"/>
+                        <h:inputText id="jurisprudencia" styleClass="form-control" value="#{casoBean.caso.jurisprudencia}" required="true" 
+                                     requiredMessage="Debes ingresar el tipo de jurisprudencia"/> 
+
+                        <h:outputLabel for="detalle" value="Detalle:"/>
+                        <h:inputTextarea id="detallee" styleClass="form-control" value="#{casoBean.caso.detalleCaso}" required="false" 
+                                         requiredMessage="Debes ingresar el detalle del caso"></h:inputTextarea>
+                        <h:outputLabel for="refext" value="Ref. Externa:"/>
+                        <h:inputText id="refext" styleClass="form-control" value="#{casoBean.caso.referenciaExterna}" required="false" 
+                                     requiredMessage="Ingrese referencia externa"></h:inputText>
+                        <h:outputLabel for="fechai" value="Inicio:"/>
+
+                        <b:dateTimePicker mode="toggle-icon" showWeek="true" value="#{casoBean.caso.fechaInicio}" required="true" 
+                                          label-col-md="3" col-md="10"  format="DD/MM/YYYY"  
+                                          requiredMessage="Debes ingresar la fecha de apertura del caso"/>
+
+                        <h:outputLabel for="fechaf" value="Finaliza:"/>
+                        <b:dateTimePicker mode="toggle-icon" showWeek="true" value="#{casoBean.caso.fechaFin}" required="false" 
+                                          label-col-md="3" col-md="10"  format="DD/MM/YYYY"  
+                                          requiredMessage="Debes ingresar la fecha en que fue finalizado el caso"/>
+
+                        <h:outputLabel for="estado" value="Estado del caso:"/>
+                        <h:selectOneMenu id="estado" value = "#{casoBean.caso.estado}" 
+                                         styleClass="form-control"> 
+                            <f:selectItem itemValue = "True" itemLabel = "Abierto"  /> 
+                            <f:selectItem itemValue = "False" itemLabel = "Cerrado" />
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <h:commandButton  value="Guardar" styleClass="btn btn-success"
+                                      action="#{casoBean.modificarRegistro()}" style="margin-right:10px"/>
+                    <h:commandButton type="reset" value="Limpiar" styleClass="btn btn-danger"/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <body>
+
+        <ui:composition template="./../master_BA.xhtml">
+            <ui:define name="barrita">
+                <b:form>
+                    <b:icon class="ico" value="pause" />
+                </b:form>
+            </ui:define>
+            <ui:define name="titular">
+                <p>Archivero de Casos</p> 
+            </ui:define>
+            <ui:define name="subtitular">
+                <p>Archivos</p> 
+            </ui:define>
+            <ui:define name="content">
+                <h:form>
+                    <b:dataTable value="#{casoBean.lista}" 
+                                 class="tablaDatos" responsive="true"  excel="true" csv="true"
+                                 pdf="true" columnVisibility="true" copy="true"
+                                 print="true" var="cas"   >
+                        <b:dataTableColumn value="#{cas.tituloCaso}" label="Titulo"/>
+                        <b:dataTableColumn value="#{cas.referencia}" />
+
+                        <b:dataTableColumn value="#{cas.materia}"/>
+                        <b:dataTableColumn value="#{cas.juzgado}"/>
+                        <b:dataTableColumn value="#{cas.numJuez}" label="N°Juez"/>
+                        <b:dataTableColumn value="#{cas.demandante}"/>
+                        <b:dataTableColumn value="#{cas.demandado}"/>
+                        <b:dataTableColumn value="#{cas.proceso}"/>
+                        <b:dataTableColumn value="#{cas.jurisprudencia}"/>
+                        <b:dataTableColumn value="#{cas.detalleCaso}" label="Descripción"/>
+                        <b:dataTableColumn value="#{cas.referenciaExterna}"/>
+                        <b:dataTableColumn label="Fecha Inicio">
+                            <h:outputText value="#{cas.fechaInicio}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>
+                        </b:dataTableColumn>
+                        <b:dataTableColumn  label="Fecha Fin">
+                            <h:outputText value="#{cas.fechaFin}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputText>  
+                        </b:dataTableColumn>
+                        <b:dataTableColumn label="Estado">
+                            <h:outputText value="#{cas.estado?'Abierto':'Cerrado'}">
+                            </h:outputText> 
+                        </b:dataTableColumn>
+                        <b:dataTableColumn  label="Operaciones" >
+                            <h:commandButton  class="btn-default btn-sm" 
+                                              value="Eliminar" styleClass="btn btn-danger" 
+                                              action="#{casoBean.eliminarRegistro()}"
+                                              >
+                                <f:param name="referencia" value="#{cas.referencia}"/>
+                            </h:commandButton>
+                            
+                                <h:link value="Ver Registro" styleClass="btn btn-primary" 
+                                        outcome="${pageContext.request.contextPath}/casos/bitacora.xhtml">  
+                                    <f:param name="referencia" value="#{cas.referencia}"/>
+                                </h:link> 
+                            
+                        </b:dataTableColumn>
+
+                    </b:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

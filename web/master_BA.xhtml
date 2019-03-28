@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:b="http://bootsfaces.net/ui" >
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="default.css"/>
+        <h:outputStylesheet library="css" name="cssLayout.css"/>
+       
+        <h:outputStylesheet library="css" name="alertify.core.css" />
+        <h:outputStylesheet library="css" name="alertify.default.css" />
+        <h:outputScript library="js"  name="alertify.js"/>
+        <title>BUFETE GOMEZ LARIOS</title>
+    </h:head>
+
+    <h:body rendered="${loginBean.verificarSesion()}">
+
+        <div id="top">
+            <b:navBar brand="Bufete GL" fluid="true" inverse="true">
+                <b:navbarLinks>
+                    <b:dropMenu  value="Casos" iconAwesome="fas fa-fw fa-folder">
+                        <b:navLink header="Casos"></b:navLink>
+
+                        <b:navLink>
+                            <h:link  outcome="${pageContext.request.contextPath}/casos/nuevoCaso.xhtml" value="Registrar Casos">
+                            </h:link>
+                        </b:navLink>
+                        <b:navLink>
+                            <h:link  outcome="${pageContext.request.contextPath}/casos/casos.xhtml" value="Mis casos">
+                            </h:link>
+                        </b:navLink>
+                        
+                        <b:navLink></b:navLink>
+                        <b:navLink header="Colaboradores"></b:navLink>
+                        <b:navLink>
+                            <h:link  outcome="${pageContext.request.contextPath}/colaboradores/nuevoColaborador.xhtml" value="Registar colaborador">
+                            </h:link>
+                        </b:navLink>
+                        <b:navLink value="" href="#">
+                            <h:link  outcome="${pageContext.request.contextPath}/colaboradores/colaborador.xhtml" value="Bufete">
+                            </h:link>
+                        </b:navLink>
+                    </b:dropMenu>
+
+                    <b:dropMenu value="Clientes" iconAwesome="fas fa-users">
+                        <b:navLink header="Clientes"></b:navLink>
+                        <b:navLink value="" href="#">
+                            <h:link  outcome="${pageContext.request.contextPath}/clientes/nuevoCliente.xhtml" value="Registrar Clientes">
+                            </h:link>
+                        </b:navLink>
+                        <b:navLink value="" href="#">
+                            <h:link  outcome="${pageContext.request.contextPath}/clientes/clientes.xhtml" value="Clientes">
+                            </h:link>
+                        </b:navLink>
+
+                        <b:navLink></b:navLink>
+                        <b:navLink header="Poder"></b:navLink>
+                        <b:navLink value="" href="#">
+                            <h:link  outcome="${pageContext.request.contextPath}/clientes/nuevoPoder.xhtml" value="Registrar Poder">
+                            </h:link>
+                        </b:navLink>
+                        <b:navLink value="" href="#">
+                            <h:link  outcome="${pageContext.request.contextPath}/clientes/poderes.xhtml" value="Poderes">
+                            </h:link>
+                        </b:navLink>
+                    </b:dropMenu>
+                    <b:navLink iconAwesome="fas fa-calendar" outcome="${pageContext.request.contextPath}/colaboradores/calendario.xhtml" value="Calendario" >
+                        
+                    </b:navLink>
+
+                    <b:dropMenu value="Mantenimientos" iconAwesome="fas fa-cogs">
+                        <b:navLink header="Usuarios"></b:navLink>
+                        <b:navLink value="" href="#">
+                            <h:link  outcome="${pageContext.request.contextPath}/mantenimiento/nuevoUsuario.xhtml" value="Registrar usuario">
+                            </h:link>
+                        </b:navLink>
+                        <b:navLink value="" href="#">
+                            <h:link  outcome="${pageContext.request.contextPath}/mantenimiento/logUsuario.xhtml" value="Log usuario">
+                            </h:link>
+                        </b:navLink>
+                        <b:navLink></b:navLink>
+                        <b:navLink header="Edicion Delicada"></b:navLink>
+                        <b:navLink value="Reasignar Caso" href="#"></b:navLink>
+                        <b:navLink value="Administrar Colaboradores" href="#"></b:navLink>
+                        <b:navLink value="Administrar Bitacora" href="#"></b:navLink>
+                    </b:dropMenu>
+
+                </b:navbarLinks>
+                <b:navbarLinks pull="right">
+                    <b:dropMenu value="" iconAwesome="fas fa-user">
+                        <b:navLink header="NombreUsuario"></b:navLink>
+                        <b:navLink href="#">
+                            <h:form>
+                                <h:commandButton value="Salir" styleClass="btn btn-danger"
+                                                 action="#{loginBean.cerrarSesion()}"
+                                    ></h:commandButton>
+                            </h:form>
+                        </b:navLink>
+
+                    </b:dropMenu>
+
+                </b:navbarLinks>
+            </b:navBar>
+        </div>
+        <div>
+            <div id="titular" class="titular">
+                <div  class="barrita" >
+                    <ui:insert name="barrita">
+                    </ui:insert>
+                </div>
+                <div class="titulo">
+                    <ui:insert name="titular">
+                    </ui:insert>
+                </div>
+                <div class="subtitulo">
+                    <ui:insert name="subtitular">
+                    </ui:insert>
+                </div>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content"></ui:insert>
+            </div>
+        </div>
+        <div id="bottom">
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © NoHablotakataka 2018</span>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+
+    </h:body>
+
+</html>
